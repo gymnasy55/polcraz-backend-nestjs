@@ -1,4 +1,11 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../users/users.model';
 
@@ -39,17 +46,17 @@ export class Post extends Model<Post, PostCreationAttrs> {
   @ApiProperty({ example: 'test.jpeg', description: 'Post image' })
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: false,
   })
   image: string;
 
   @Column({
     type: DataType.INTEGER,
-    allowNull: false
+    allowNull: false,
   })
   @ForeignKey(() => User)
   userId: number;
 
   @BelongsTo(() => User)
-  author: User
+  author: User;
 }

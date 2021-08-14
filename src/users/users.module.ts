@@ -15,10 +15,8 @@ import { Post } from '../posts/posts.model';
   imports: [
     SequelizeModule.forFeature([User, Role, UserRoles, Post]),
     RolesModule,
-    forwardRef(() => AuthModule)
+    forwardRef(() => AuthModule),
   ],
-  exports: [
-    UsersService
-  ]
+  exports: [UsersService],
 })
 export class UsersModule {}

@@ -8,24 +8,28 @@ import { BanUserDto } from './dto/ban-user.dto';
 
 @Injectable()
 export class UsersService {
-
-  constructor(@InjectModel(User) private userRepository: typeof User,
-              private roleService: RolesService) {}
+  constructor(
+    @InjectModel(User) private userRepository: typeof User,
+    private roleService: RolesService,
+  ) {}
 
   async create(dto: CreateUserDto) {
-    const user = await this.userRepository.create(dto)
-    const role = await this.roleService.getByName('USER')
-    await user.$set('roles', [role.id])
-    user.roles = [role]
-    return user
+    const user = await this.userRepository.create(dto);
+    const role = await this.roleService.getByName('USER');
+    await user.$set('roles', [role.id]);
+    user.roles = [role];
+    return user;
   }
 
   async getAll() {
-    return await this.userRepository.findAll({ include: { all: true } })
+    return await this.userRepository.findAll({ include: { all: true } });
   }
 
   async getByEmail(email: string) {
-    return await this.userRepository.findOne({ where: { email }, include: { all: true } })
+    return await this.userRepository.findOne({
+      where: { email },
+      include: { all: true },
+    });
   }
 
   async addRole(dto: AddRoleDto) {
@@ -35,13 +39,13 @@ export class UsersService {
       await user.$add('role', role.id);
       return dto;
     }
-    throw new HttpException('User or role not found', HttpStatus.NOT_FOUND)
+    throw new HttpException('User or role not found', HttpStatus.NOT_FOUND);
   }
 
   async ban(dto: BanUserDto) {
     const user = await this.userRepository.findByPk(dto.userId);
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND)
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
     user.banned = true;
     user.banReason = dto.banReason;

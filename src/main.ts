@@ -10,9 +10,9 @@ async function start() {
     .setTitle("Simple polcraz's backend project on Nest.js")
     .setDescription('Documentation REST API')
     .setVersion('1.0.0')
-    .build()
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('/api/swagger', app, document)
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/api/swagger', app, document);
 
   await app.listen(PORT, () =>
     console.log(`Server has been started on port: ${PORT}...`),

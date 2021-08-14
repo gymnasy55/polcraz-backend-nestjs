@@ -6,17 +6,17 @@ import { FilesService } from '../files/files.service';
 
 @Injectable()
 export class PostsService {
-
-  constructor(@InjectModel(Post) private postRepository: typeof Post,
-              private filesService: FilesService) {}
+  constructor(
+    @InjectModel(Post) private postRepository: typeof Post,
+    private filesService: FilesService,
+  ) {}
 
   async create(dto: CreatePostDto, image: any) {
-    const fileName = await this.filesService.create(image)
+    const fileName = await this.filesService.create(image);
     const post = await this.postRepository.create({
       ...dto,
-      image: fileName
-    })
-    return post
+      image: fileName,
+    });
+    return post;
   }
-
 }

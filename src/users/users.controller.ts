@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -19,7 +26,7 @@ export class UsersController {
   @UsePipes(ValidationPipe)
   @Post()
   create(@Body() dto: CreateUserDto) {
-    return this.usersService.create(dto)
+    return this.usersService.create(dto);
   }
 
   @ApiOperation({ summary: 'Get all users' })
@@ -28,7 +35,7 @@ export class UsersController {
   @UseGuards(RolesGuard)
   @Get()
   getAll() {
-    return this.usersService.getAll()
+    return this.usersService.getAll();
   }
 
   @ApiOperation({ summary: 'Grant a role' })
@@ -38,7 +45,7 @@ export class UsersController {
   @UsePipes(ValidationPipe)
   @Post('/role')
   addRole(@Body() dto: AddRoleDto) {
-    return this.usersService.addRole(dto)
+    return this.usersService.addRole(dto);
   }
 
   @ApiOperation({ summary: 'Ban a user' })
@@ -47,6 +54,6 @@ export class UsersController {
   @UseGuards(RolesGuard)
   @Post('/ban')
   ban(@Body() dto: BanUserDto) {
-    return this.usersService.ban(dto)
+    return this.usersService.ban(dto);
   }
 }
